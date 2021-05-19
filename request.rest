@@ -1,0 +1,130 @@
+post http://localhost:3000/api/v1/users/signup
+content-type: application/json
+
+{
+    "@type": "Person",
+    "name": "test",
+    "email": "test@test.com",
+    "password": "test1234",
+    "passwordConfirm": "test1234"
+}
+
+###
+
+post http://localhost:3000/api/v1/users/login
+content-type: application/json
+
+{
+	"email": "test@test.com",
+	"password": "test1234"
+}
+
+
+###
+post http://localhost:3000/api/v1/community/
+content-type: application/json
+
+{
+    "@context": "//schema.org",
+    "name": {
+        "@type": "CommunityField",
+        "value": "Second Community"
+    },
+    "description": {
+        "@type": "CommunityField",
+        "value": "İlk kömün online"
+    },
+    "tags": 
+    {
+        "@type": "CommunityField",
+        "value": ["tag1", "tag2"]
+    }
+}
+
+
+###
+post http://localhost:3000/api/v1/community/60a508df8302eb37e01c9f75/postType
+content-type: application/json
+
+{
+    "@context": "//schema.org",
+    "@type": "PostType",
+    
+    "name": {
+        "@type": "PostTypeFieldItem",
+        "value": "First Post Type"
+    },
+    "description": {
+        "@type": "PostTypeFieldItem",
+        "value": "Desc of the post type"
+    },
+    "tags": 
+    {
+        "@type": "PostTypeFieldItem",
+        "value": ["postTypeDown", "tag2"]
+    },
+    "postTypeFields": [
+        {
+            "@type": "PostTypeFieldItem",
+            "value": {
+                "title": "Comment",
+                "isRequired": true,
+                "isEditable": false,
+                "dataType": "text"
+            }
+        },
+        {
+            "@type": "PostTypeFieldItem",
+            "value": {
+                "title": "Location",
+                "isRequired": true,
+                "isEditable": false,
+                "dataType": "geolocation"
+            }
+        }
+    ]
+}
+
+###
+
+post http://localhost:3000/api/v1/community/60a508df8302eb37e01c9f75/postType/60a5197da7d02a3e74468d92/post
+content-type: application/json
+
+{
+    "@context": "//schema.org",
+    "@type": "Post",
+    "name": {
+        "@type": "PostFieldItem",
+        "value": "First Post of this comm"
+    },
+    "description": {
+        "@type": "PostFieldItem",
+        "value": "Desc of theis post"
+    },
+    "tags": 
+    {
+        "@type": "PostFieldItem",
+        "value": ["post1", "post2"]
+    },
+    "postFields": [
+        {
+            "@type": "PostFieldItem",
+            "value": {
+                "title": "Comment",
+                "value": "This is a comment"
+            }
+        },
+        {
+            "@type": "PostFieldItem",
+            "value": {
+                "title": "Location",
+                "value": {
+                    "lat": 42,
+                    "long": 55
+                }
+            }
+        }
+    ]
+}
+
+ 
