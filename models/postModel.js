@@ -3,60 +3,35 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const postSchema = new Schema({
-  "@context": String,
-  "@type": String, // Post
-  //"@id": String, // url
-  about: {
-    "@type": String, // Relation,
-    community: {
-      "@type": String, // organization
-      value: {
-        type: mongoose.Schema.ObjectId,
-        ref: "Community",
-      },
-    },
-    creator: {
-      "@type": String, // person
-      value: {
-        type: mongoose.Schema.ObjectId,
-        ref: "User",
-      },
-    },
-    postType: {
-      "@type": String, // PostType
-      value: {
-        type: Schema.ObjectId,
-        ref: "PostType",
-      },
-    },
+  "@context": { type: String, value: "url/communityData.jsonld" },
+  "@type": { type: String, value: "CommunityData" },
+  cd: {
+    type: String,
+    value: "bunity/CommunityData",
   },
-  name: {
-    "@type": String, // PostFieldItem
-    value: {
-      type: String,
-      required: [true, "A postType must have a name!"],
-      unique: true,
-    },
+  title: {
+    type: String,
+    required: [true, "A community data must have a title!"],
   },
-  description: {
-    "@type": String, // PostFieldItem
-    value: {
-      type: String,
-    },
+  description: String,
+  tags: [String],
+  creator: {
+    "@type": { type: String, value: "cd:creator" },
+    "@id": String,
   },
-  tags: {
-    "@type": String, // PostFieldItem
-    value: {
-      type: [String],
-    },
+  community: {
+    "@type": { type: String, value: "cd:creator" },
+    "@id": String,
+  },
+  communityDataType: {
+    "@type": { type: String, value: "cd:communityDataType" },
+    "@id": String,
   },
   postFields: [
     {
-      "@type": String, // PostFieldItem
-      value: {
-        title: String,
-        value: Object,
-      },
+      "@type": { type: String, value: "cd:communityData" },
+      label: String,
+      value: Object,
     },
   ],
   createdAt: {

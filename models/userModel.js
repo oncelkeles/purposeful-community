@@ -27,6 +27,19 @@ const userSchema = new mongoose.Schema({
     enum: ["user", "admin"],
     default: "user",
   },
+  invites: [
+    {
+      community: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Community",
+      },
+      status: {
+        type: String,
+        enum: ["accepted", "rejected", "pending"],
+        default: "pending",
+      },
+    },
+  ],
   password: {
     type: String,
     required: [true, "Please provide a password"],

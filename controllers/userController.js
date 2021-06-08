@@ -120,20 +120,14 @@ exports.createUser = (req, res) => {
   });
 };
 
-/* exports.getMyTours = catchAsync(async (req, res, next) => {
-  const bookings = await Booking.find({ user: req.user.id });
-
-  const tourIds = bookings.map((el) => el.tour);
-  const tours = await Tour.find({ _id: { $in: tourIds } });
+exports.getAllUserByName = catchAsync(async (req, res, next) => {
+  const docs = await User.find({ name: { $regex: req.query.name } });
 
   res.status(200).json({
     status: "success",
-    data: {
-      bookings,
-      tours,
-    },
+    data: docs,
   });
-}); */
+});
 
 exports.getAllUsers = factory.getAll(User);
 exports.getUser = factory.getOne(User);

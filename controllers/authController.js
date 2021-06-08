@@ -49,7 +49,6 @@ exports.signup = catchAsync(async (req, res, next) => {
     passwordChangedAt: req.body.passwordChangedAt,
     role: req.body.role,
   }); */
-  console.log("HH");
   const newUser = await User.create(req.body);
 
   const url = `${req.protocol}://${req.get("host")}/me`;
@@ -92,7 +91,7 @@ exports.logout = catchAsync((req, res, next) => {
 
 exports.protect = catchAsync(async (req, res, next) => {
   let token;
-  console.log(token);
+  
   // get token and check if it exists
   if (
     req.headers.authorization &&
@@ -102,7 +101,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   } else if (req.cookies.token) {
     token = req.cookies.token;
   }
-
+  
   if (!token) {
     return next(
       new AppError("You are not logged in! Please login to get access.", 401)

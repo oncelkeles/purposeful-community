@@ -7,29 +7,24 @@ const authController = require("./../controllers/authController");
 
 const router = express.Router();
 
+router.use(authController.protect);
+
 router
   .route("/")
   .get(communityController.getAllCommunities)
-  .post(
-    authController.protect,
-    communityController.setUserIds,
-    communityController.createCommunity
-  );
+  .post(communityController.setUserIds, communityController.createCommunity);
 
 router
-  .route("/:communityId/postType")
-  .post(
-    authController.protect,
-    postTypeController.setRelationIds,
-    postTypeController.createPostType
-  );
+  .route("/:communityId/postTypes")
+  .post(postTypeController.setRelationIds, postTypeController.createPostType)
+  .get(communityController.getAllPostTypes);
 
 router
-  .route("/:communityId/postType/:postTypeId/post")
-  .post(
-    authController.protect,
-    postController.setRelationIds,
-    postController.createPost
-  );
+  .route("/:communityId/postTypes/:postTypeId/posts")
+  .post(postController.setRelationIds, postController.createPost);
+
+router
+  .route("/:communityId/posts")
+  .get(communityController.getAllPosts);
 
 module.exports = router;

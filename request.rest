@@ -2,9 +2,9 @@ post http://localhost:3000/api/v1/users/signup
 content-type: application/json
 
 {
-    "@type": "Person",
-    "name": "test",
-    "email": "test@test.com",
+    "@type": "Person2",
+    "name": "test2",
+    "email": "test2@test.com",
     "password": "test1234",
     "passwordConfirm": "test1234"
 }
@@ -25,106 +25,76 @@ post http://localhost:3000/api/v1/community/
 content-type: application/json
 
 {
-    "@context": "//schema.org",
-    "name": {
-        "@type": "CommunityField",
-        "value": "Second Community"
-    },
-    "description": {
-        "@type": "CommunityField",
-        "value": "İlk kömün online"
-    },
-    "tags": 
-    {
-        "@type": "CommunityField",
-        "value": ["tag1", "tag2"]
-    }
+    "isPublic": true,
+    "name": "Hisarüstü Cafeleri",
+    "description": "Hisarüstü'nün en iyi cafeleri burada",
+    "tags": ["cafe", "food", "hisarüstü"]
 }
 
 
 ###
-post http://localhost:3000/api/v1/community/60a508df8302eb37e01c9f75/postType
+post http://localhost:3000/api/v1/community/60be2f36b9901705f47a09ac/postTypes
 content-type: application/json
 
 {
-    "@context": "//schema.org",
-    "@type": "PostType",
-    
-    "name": {
-        "@type": "PostTypeFieldItem",
-        "value": "First Post Type"
-    },
-    "description": {
-        "@type": "PostTypeFieldItem",
-        "value": "Desc of the post type"
-    },
-    "tags": 
-    {
-        "@type": "PostTypeFieldItem",
-        "value": ["postTypeDown", "tag2"]
-    },
-    "postTypeFields": [
+    "title": "Cafe",
+    "description": "Nice cafes",
+    "tags": ["cafe", "coffee", "drink"],
+    "communityDataTypeFields": [
         {
-            "@type": "PostTypeFieldItem",
-            "value": {
-                "title": "Comment",
-                "isRequired": true,
-                "isEditable": false,
-                "dataType": "text"
-            }
+            "@type":"cdt:communityDataTypeField",
+            "fieldName": "Cafe Name",
+            "fieldIsRequired": true,
+            "fieldIsEditable": false,
+            "fieldType": "Text"
         },
         {
-            "@type": "PostTypeFieldItem",
-            "value": {
-                "title": "Location",
-                "isRequired": true,
-                "isEditable": false,
-                "dataType": "geolocation"
-            }
+            "@type":"cdt:communityDataTypeField",
+            "fieldName": "Location",
+            "fieldIsRequired": true,
+            "fieldIsEditable": false,
+            "fieldType": "Geolocation"
         }
     ]
 }
 
 ###
 
-post http://localhost:3000/api/v1/community/60a508df8302eb37e01c9f75/postType/60a5197da7d02a3e74468d92/post
+post http://localhost:3000/api/v1/community/60be2f36b9901705f47a09ac/postTypes/60be2fedb9901705f47a09ad/posts
 content-type: application/json
 
 {
-    "@context": "//schema.org",
-    "@type": "Post",
-    "name": {
-        "@type": "PostFieldItem",
-        "value": "First Post of this comm"
-    },
-    "description": {
-        "@type": "PostFieldItem",
-        "value": "Desc of theis post"
-    },
-    "tags": 
-    {
-        "@type": "PostFieldItem",
-        "value": ["post1", "post2"]
-    },
+    "title": "Best Place for tahin sufle!",
+    "description": "Desert for your soul!",
+    "tags": ["breakfast", "cafe", "sufle", "tahin"],
     "postFields": [
         {
-            "@type": "PostFieldItem",
-            "value": {
-                "title": "Comment",
-                "value": "This is a comment"
-            }
+           "label": "Cafe Name",
+           "value": "Daktilo"
         },
-        {
-            "@type": "PostFieldItem",
+        {   
+            "label": "Location",
             "value": {
-                "title": "Location",
-                "value": {
-                    "lat": 42,
-                    "long": 55
-                }
+                "latitude": 41.086319,
+                "longitude": 29.046067
             }
         }
     ]
 }
 
- 
+
+###
+get http://localhost:3000/api/v1/community/60bced4504bcfe30182f0202/postTypes
+content-type: application/json
+
+
+###
+get http://localhost:3000/api/v1/community/60bd052c68e4902d601759f7/posts
+content-type: application/json
+
+
+
+
+###
+get http://localhost:3000/api/v1/users/usersByName/?name=test
+content-type: application/json

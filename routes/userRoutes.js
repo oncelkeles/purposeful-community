@@ -23,8 +23,10 @@ router.patch(
 );
 router.delete("/deleteMe", userController.deleteMe);
 
+router.route("/usersByName").get(userController.getAllUserByName);
+
 // restrict to admins
-router.use(authController.restrictTo("admin"));
+//router.use(authController.restrictTo("admin"));
 
 router
   .route("/")

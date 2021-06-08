@@ -1,73 +1,43 @@
 const mongoose = require("mongoose");
 
-/* const Type = require("./typeModel");
-
-const {
-  stringType,
-  numberType,
-  linkType,
-  radioType,
-  checkboxType,
-  dateType,
-  imageUriType,
-  mixedType,
-} = Type; */
-
 const postTypeSchema = new mongoose.Schema({
-  "@context": String,
-  "@type": String, // post type
-  about: {
-    "@type": String, // relation
-    community: {
-      "@type": String, // organization
-      value: {
-        type: mongoose.Schema.ObjectId,
-        ref: "Community",
-      },
-    },
-    creator: {
-      "@type": String, // person
-      value: {
-        type: mongoose.Schema.ObjectId,
-        ref: "User",
-      },
-    },
+  "@context": { type: String, value: "url/communityDataType.jsonld" },
+  "@type": { type: String, value: "CommunityDataType" }, // post type,
+  "@id": {
+    type: String,
   },
-  name: {
-    "@type": String, // PostTypeFieldItem
-    value: {
-      type: String,
-      required: [true, "A postType must have a name!"],
-      unique: true,
-    },
+  incrementing: 0,
+  cdt: {
+    type: String,
+    value: "bunity/CommunityDataType",
   },
-  description: {
-    "@type": String, // PostTypeFieldItem
-    value: {
-      type: String,
-    },
+  title: {
+    type: String,
+    required: [true, "A community data type must have a name!"],
   },
-  tags: {
-    "@type": String, // PostTypeFieldItem
-    value: {
-      type: [String],
-    },
+  description: String,
+  tags: [String],
+  creator: {
+    "@type": { type: String, value: "cdt:creator" },
+    "@id": String,
   },
-  postTypeFields: [
+  communityDataTypeFields: [
     {
-      "@type": String, // PostTypeFieldItem
-      value: {
-        title: String,
-        isRequired: Boolean,
-        isEditable: Boolean,
-        dataType: String, // HOCAYA SOR, RADIO OLSA NASIL TUTUCAZ??
-      },
+      "@type": { type: String, value: "cdt:communityDataTypeField" },
+      fieldName: String,
+      fieldIsRequired: Boolean,
+      fieldIsEditable: Boolean,
+      fieldType: String,
     },
   ],
   createdAt: {
     type: Date,
     default: Date.now(),
     select: false,
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now(),
   },
 });
 
