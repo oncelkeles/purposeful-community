@@ -70,6 +70,30 @@ exports.getMe = (req, res, next) => {
   next();
 };
 
+exports.getName = catchAsync(async (req, res,next) => {
+  if(req.params.id) {
+    const userID = req.params.id;
+
+    
+    const user = await User.findById(userID);
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        userName: user.name,
+      },
+    });
+  } else {
+    res.status(404).json({
+      status: "fail",
+      data: {
+        msg: "user not found",
+      },
+    });
+  }
+  
+});
+
 exports.updateMe = catchAsync(async (req, res, next) => {
   console.log(req.file);
   console.log(req.body);

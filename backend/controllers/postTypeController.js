@@ -24,6 +24,7 @@ exports.setRelationIds = catchAsync(async (req, res, next) => {
       creator: {
         "@type": "ct:creator",
         "@id": req.user.id,
+        id: req.user.id,
       },
     };
   }
@@ -36,8 +37,14 @@ exports.setRelationIds = catchAsync(async (req, res, next) => {
 });
 
 exports.createPostType = catchAsync(async (req, res, next) => {
-  const doc = await PostType.create(req.body);
+  let doc;
+  try {
+    doc = await PostType.create(req.body);
+  } catch (err) {
+    console.log(err);
+  }
 
+  console.log("comm", doc);
   req.postType = doc;
 
   const comm = req.community;

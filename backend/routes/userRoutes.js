@@ -25,6 +25,8 @@ router.delete("/deleteMe", userController.deleteMe);
 
 router.route("/usersByName").get(userController.getAllUserByName);
 
+router.route("/userName/:id").get(userController.getName);
+
 // restrict to admins
 //router.use(authController.restrictTo("admin"));
 

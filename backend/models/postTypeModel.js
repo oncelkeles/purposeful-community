@@ -20,6 +20,7 @@ const postTypeSchema = new mongoose.Schema({
   creator: {
     "@type": { type: String, value: "cdt:creator" },
     "@id": String,
+    id: String
   },
   communityDataTypeFields: [
     {
@@ -27,7 +28,8 @@ const postTypeSchema = new mongoose.Schema({
       fieldName: String,
       fieldIsRequired: Boolean,
       fieldIsEditable: Boolean,
-      fieldType: String,
+      fieldType: Object,
+      options: [String]
     },
   ],
   createdAt: {

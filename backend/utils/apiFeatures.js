@@ -11,13 +11,16 @@ class APIFeatures {
     excludedFields.forEach((el) => {
       delete queryObj[el];
     });
-
+    //{ $regex: "s", $options: "i" } }
     // 1.b) advanced filtering
     let queryString = JSON.stringify(queryObj);
+    console.log(queryString)
     queryString = queryString.replace(
       /\b(gte|gt|lte|lt)\b/g,
       (match) => `$${match}`
     );
+
+    console.log(queryString)
 
     this.query = this.query.find(JSON.parse(queryString));
 

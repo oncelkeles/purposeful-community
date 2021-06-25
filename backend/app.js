@@ -12,6 +12,9 @@ const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
 const userRouter = require("./routes/userRoutes");
 const communityRouter = require("./routes/communityRoutes");
+const postTypeRouter = require("./routes/postTypeRoutes");
+const postRouter = require("./routes/postRoutes");
+const invitationRouter = require("./routes/invitationRoutes");
 
 const app = express();
 
@@ -29,7 +32,7 @@ if (process.env.NODE_ENV === "development") {
 
 // limit requests from same IP for same API
 const limiter = rateLimit({
-  max: 100,
+  max: 10000,
   windowMs: 60 * 60 * 1000,
   message: "Too many requests from this IP! Please try again in an hour.",
 });
@@ -74,7 +77,9 @@ app.use((req, res, next) => {
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/community", communityRouter);
-/* app.use("/api/v1/postType", postTypeRouter); */
+app.use("/api/v1/postType", postTypeRouter);
+app.use("/api/v1/post", postRouter);
+app.use("/api/v1/invitations", invitationRouter);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
