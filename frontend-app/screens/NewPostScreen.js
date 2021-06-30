@@ -76,7 +76,7 @@ const NewPostScreen = (props) => {
         title,
         postTypes: postTypes,
         communityId: props.navigation.state.params.communityId,
-        isHiddenFromFeed: !props.navigation.state.params.community.isPublic
+        isHiddenFromFeed: props.navigation.state.params.community.isPublic?  !props.navigation.state.params.community.isPublic : false,
       },
     });
   };
