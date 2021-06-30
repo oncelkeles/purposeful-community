@@ -53,6 +53,7 @@ const PostOverview = (props) => {
   post.tags.map((item, index) => {
     tags = tags + "#" + item;
   });
+  if(tags === "#") tags = "";
 
   return (
     <TouchableComp

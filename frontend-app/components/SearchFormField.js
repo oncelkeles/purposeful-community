@@ -55,8 +55,6 @@ const FormField = (props) => {
     setDate(currentDate);
   };
 
-
-
   let fields;
   if (
     typeof props.type === "object" &&
@@ -137,13 +135,32 @@ const FormField = (props) => {
       </View>
     );
   } else if (props.type === "Checkbox") {
-    fields = (
+    /* fields = (
       <View style={styles.checkboxContainer}>
         <CheckBox
           checked={props.values}
           onPress={() => props.onCheckboxChange(props.index)}
         />
         <Text>{props.label}</Text>
+      </View>
+    ); */
+    /* let options = props.options.map((item) => {
+      return { label: item, value: item };
+    }); */
+    let options = [{label: "YES", value: "YES"},{label: "NO", value: "NO"}]
+    fields = (
+      <View style={styles.formControl}>
+        <Text>{props.label}</Text>
+
+        <RNPickerSelect
+          style={{ ...styles.selectBox, inputAndroid: { color: "black" } }}
+          useNativeAndroidPickerStyle={false}
+          fixAndroidTouchableBug={true}
+          value={props.values}
+          onValueChange={(value) => props.onCheckboxDropdownChange(value, props.index)}
+          items={[...options]}
+          //value={props.values ? props.values : options[0].value}
+        />
       </View>
     );
   } else if (props.type === "Select") {
@@ -171,8 +188,11 @@ const FormField = (props) => {
       <View style={{ ...styles.formControl, marginTop: 12 }}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Text>{props.label}: </Text>
-         <Text> {moment(props.valuese).format("D MMM YY")}</Text>
-          <Button onPress={showDatepicker} title={ props.values ? "Pick another date" : "Pick date"} />
+          <Text> {moment(props.valuese).format("D MMM YY")}</Text>
+          <Button
+            onPress={showDatepicker}
+            title={props.values ? "Pick another date" : "Pick date"}
+          />
         </View>
 
         {show && (

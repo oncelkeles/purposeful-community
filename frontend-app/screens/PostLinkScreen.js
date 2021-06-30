@@ -67,6 +67,7 @@ const PostLinkScreen = (props) => {
     post.tags.map((item, index) => {
       tags = "#" + item;
     });
+    if(tags === "#") tags = "";
 
     postFields = post.postFields.map((item, index) => {
       if (

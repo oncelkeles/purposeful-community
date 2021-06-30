@@ -43,6 +43,7 @@ const CommunityOverview = (props) => {
   community.tags.map((item, index) => {
     tags = tags + "#" + item;
   });
+  if(tags === "#") tags = "";
 
   return (
     <TouchableComp

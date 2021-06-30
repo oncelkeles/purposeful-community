@@ -123,7 +123,7 @@ const AdvancedSearchScreen = (props) => {
 
             //setFields((prevArr) => [...prevArr, ...res.communityDataTypeFields]);
           });
-        } 
+        }
         /* else {
           let emptyInputs = [];
           let newFields = item;
@@ -210,6 +210,21 @@ const AdvancedSearchScreen = (props) => {
     setFormInputs([...tempArr]);
   };
 
+  const onCheckboxDropdownChange = (value, index) => {
+    let val = "";
+    if (value === "YES") {
+      val = true;
+    } else if (value === "NO") {
+      val = false;
+    }
+    let temp = [...formInputs];
+    let tempElement = temp[index];
+    tempElement = val;
+    temp[index] = tempElement;
+
+    setFormInputs([...temp]);
+  };
+
   const onFieldDropdownChangeHandler = (value, index) => {
     let temp = [...formInputs];
     let tempElement = temp[index];
@@ -287,7 +302,7 @@ const AdvancedSearchScreen = (props) => {
       {fields.map((item, index) => {
         if (typeof item.fieldType !== "object") {
           return (
-            <View style={styles.formView}>
+            <View key={index} style={styles.formView}>
               <SearchFormField
                 key={
                   item.options
@@ -304,6 +319,7 @@ const AdvancedSearchScreen = (props) => {
                 onLocationChange={onFieldLocationChangeHandler}
                 onCheckboxChange={onFieldCheckboxChangeHandler}
                 onDropdownChange={onFieldDropdownChangeHandler}
+                onCheckboxDropdownChange={onCheckboxDropdownChange}
                 //onDataTypePostChange={onFieldDataTypePostChangeHandler}
               />
               <View style={{ height: 20 }} />

@@ -310,6 +310,8 @@ const checkFieldValue = (field, searchValue) => {
         check = false;
       }
     } else if (field.dataType === "Checkbox") {
+      console.log("searchValue.value",searchValue.value)
+      console.log("field.value",field.value)
       if (field.value !== searchValue.value) {
         check = false;
       }
