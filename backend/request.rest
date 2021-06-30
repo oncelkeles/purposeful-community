@@ -2,20 +2,25 @@ post http://localhost:3000/api/v1/users/signup
 content-type: application/json
 
 {
-    "@type": "Person2",
-    "name": "test2",
-    "email": "test2@test.com",
+    "@type": "Person",
+    "name": "test102",
+    "email": "test102@test.com",
     "password": "test1234",
     "passwordConfirm": "test1234"
 }
 
+//60d610e90800289790a195d9 comm id
+// 60d615f30027c357d00ffd7e comm PRIV
+// 102: 60d615940027c357d00ffd7d
+// 101: 60d611080800289790a195da
+// 100: 60d610ca0800289790a195d8
 ###
 
 post http://localhost:3000/api/v1/users/login
 content-type: application/json
 
 {
-	"email": "test@test.com",
+	"email": "test100@test.com",
 	"password": "test1234"
 }
 
@@ -25,15 +30,15 @@ post http://localhost:3000/api/v1/community/
 content-type: application/json
 
 {
-    "isPublic": true,
-    "name": "Hisarüstü Cafeleri",
-    "description": "Hisarüstü'nün en iyi cafeleri burada",
+    "isPublic": false,
+    "name": "invitation PRIVATE test",
+    "description": "invitation test",
     "tags": ["cafe", "food", "hisarüstü"]
 }
 
 
 ###
-post http://localhost:3000/api/v1/community/60be2f36b9901705f47a09ac/postTypes
+post http://localhost:3000/api/v1/community/60c3898f212902a388eaf67e/postTypes
 content-type: application/json
 
 {
@@ -50,17 +55,41 @@ content-type: application/json
         },
         {
             "@type":"cdt:communityDataTypeField",
-            "fieldName": "Location",
+            "fieldName": "Select",
             "fieldIsRequired": true,
             "fieldIsEditable": false,
-            "fieldType": "Geolocation"
+            "fieldType": "kitchen",
+            "options": 
         }
     ]
 }
 
 ###
 
-post http://localhost:3000/api/v1/community/60be2f36b9901705f47a09ac/postTypes/60be2fedb9901705f47a09ad/posts
+post http://localhost:3000/api/v1/community/60c3898f212902a388eaf67e/postTypes/60be2fedb9901705f47a09ad/posts
+content-type: application/json
+
+{
+    "title": "Best Place for tahin sufle!",
+    "description": "Desert for your soul!",
+    "tags": ["breakfast", "cafe", "sufle", "tahin"],
+    "postFields": [
+        {
+           "label": "Cafe Name",
+           "value": "Daktilo"
+        },
+        {   
+            "label": "Location",
+            "value": {
+                "latitude": 41.086319,
+                "longitude": 29.046067
+            }
+        }
+    ]
+}
+
+
+post http://localhost:3000//api/v1/community/60be2f36b9901705f47a09ac/postTypes/60be2fedb9901705f47a09ad/post
 content-type: application/json
 
 {
@@ -84,7 +113,7 @@ content-type: application/json
 
 
 ###
-get http://localhost:3000/api/v1/community/60bced4504bcfe30182f0202/postTypes
+get http://localhost:3000/api/v1/community/60c3898f212902a388eaf67e/postTypes
 content-type: application/json
 
 
@@ -95,6 +124,71 @@ content-type: application/json
 
 
 
+
 ###
-get http://localhost:3000/api/v1/users/usersByName/?name=test
+post http://localhost:3000/api/v1/invitations
+content-type: application/json
+
+{
+    "from": {
+        "community": "60d615f30027c357d00ffd7e"
+    },
+    "to": {
+        "user": "60d610ca0800289790a195d8"
+    },
+    "status": 1
+}
+
+
+###
+get http://localhost:3000/api/v1/users/usersByName/?name=test100
+content-type: application/json
+
+###
+get http://localhost:3000/api/v1/invitations
+content-type: application/json
+###
+post http://localhost:3000/api/v1/invitations/60d6124ef46f1b2bd0b1d3e7/accept
+content-type: application/json
+
+{
+}
+
+###
+post http://localhost:3000/api/v1/invitations/60c5fbbd19bc5001b85d2ebc/reject
+content-type: application/json
+
+{
+}
+
+###
+get http://localhost:3000/api/v1/feeds
+content-type: application/json
+
+###
+post http://localhost:3000/api/v1/community/60d615f30027c357d00ffd7e/join
+content-type: application/json
+
+{
+}
+
+###
+post http://localhost:3000/api/v1/community/60d615f30027c357d00ffd7e/accept
+content-type: application/json
+
+{
+    "userId": "60d611080800289790a195da"
+}
+
+###
+post http://localhost:3000/api/v1/community/60d43eda3f8b6c72d04103a0/reject
+content-type: application/json
+
+{
+    "userId": "60ca1381970ca186b029c06d"
+}
+
+
+###
+get http://localhost:3000/api/v1/community/me
 content-type: application/json

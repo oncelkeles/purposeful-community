@@ -7,6 +7,10 @@ const postTypeSchema = new mongoose.Schema({
     type: String,
   },
   incrementing: 0,
+  isHidden:{
+    type: Boolean,
+    default: false,
+  },
   cdt: {
     type: String,
     value: "bunity/CommunityDataType",
@@ -20,6 +24,7 @@ const postTypeSchema = new mongoose.Schema({
   creator: {
     "@type": { type: String, value: "cdt:creator" },
     "@id": String,
+    id: String
   },
   communityDataTypeFields: [
     {
@@ -27,7 +32,9 @@ const postTypeSchema = new mongoose.Schema({
       fieldName: String,
       fieldIsRequired: Boolean,
       fieldIsEditable: Boolean,
-      fieldType: String,
+      fieldType: Object,
+      options: [String],
+      listValue : Object
     },
   ],
   createdAt: {

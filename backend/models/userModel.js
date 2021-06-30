@@ -29,14 +29,16 @@ const userSchema = new mongoose.Schema({
   },
   invites: [
     {
+      invitation: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Invitation",
+      },
       community: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Community",
       },
       status: {
-        type: String,
-        enum: ["accepted", "rejected", "pending"],
-        default: "pending",
+        type: Number,
       },
     },
   ],
