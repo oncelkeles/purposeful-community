@@ -11,13 +11,16 @@ content-type: application/json
 
 //60d610e90800289790a195d9 comm id
 // 60d615f30027c357d00ffd7e comm PRIV
+// 102: 60d615940027c357d00ffd7d
+// 101: 60d611080800289790a195da
+// 100: 60d610ca0800289790a195d8
 ###
 
 post http://localhost:3000/api/v1/users/login
 content-type: application/json
 
 {
-	"email": "test102@test.com",
+	"email": "test100@test.com",
 	"password": "test1234"
 }
 
@@ -128,17 +131,17 @@ content-type: application/json
 
 {
     "from": {
-        "community": "60d610e90800289790a195d9"
+        "community": "60d615f30027c357d00ffd7e"
     },
     "to": {
-        "user": "60d611080800289790a195da"
+        "user": "60d610ca0800289790a195d8"
     },
     "status": 1
 }
 
 
 ###
-get http://localhost:3000/api/v1/users/usersByName/?name=test
+get http://localhost:3000/api/v1/users/usersByName/?name=test100
 content-type: application/json
 
 ###

@@ -7,6 +7,10 @@ const postTypeSchema = new mongoose.Schema({
     type: String,
   },
   incrementing: 0,
+  isHidden:{
+    type: Boolean,
+    default: false,
+  },
   cdt: {
     type: String,
     value: "bunity/CommunityDataType",
@@ -29,7 +33,8 @@ const postTypeSchema = new mongoose.Schema({
       fieldIsRequired: Boolean,
       fieldIsEditable: Boolean,
       fieldType: Object,
-      options: [String]
+      options: [String],
+      listValue : Object
     },
   ],
   createdAt: {

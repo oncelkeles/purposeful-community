@@ -97,6 +97,7 @@ exports.getPostsFromPostType = catchAsync(async (req, res, next) => {
   const communityId = req.params.communityId;
   const postTypeId = req.params.postTypeId;
 
+  // community.posts yok
   /* const post = await Post.find({ _id: { $in: community.posts } }).sort({
     createdAt: -1,
   }); */
@@ -106,41 +107,61 @@ exports.getPostsFromPostType = catchAsync(async (req, res, next) => {
   let postsToSend = [];
 
   posts.map((post, index) => {
+    //console.log(post)
     let check = true;
     //console.log(post.communityDataType);
     Object.values(post.communityDataType).map((item) => {
-      console.log(item);
       if (
         item &&
         item.length > 20 &&
         item.substring(0, 24) === "bunity/communityDataType"
       ) {
-        console.log(item.substring(25));
+        //console.log(item.substring(25));
         if (item.substring(25) !== postTypeId) {
           check = false;
+          
         }
       }
     });
     if (check) {
+      //console.log("ITEM", post.postFields)
+      //console.log(post);
+      /* post.postFields.map(el => {
+        fields.push(el)
+      }) */
       postsToSend.push({
         title: post.title,
         id: post._id,
         label: post.title,
         value: post._id,
+        post: {...post, postFields: [...post.postFields]},
       });
     }
   });
 
-  console.log(postsToSend);
+  
+
+  req.postsToSend = postsToSend;
+  req.totalPosts = posts.length
+
+  next();
+
+  /* res.status(201).json({
+    status: "success",
+    data: postsToSend,
+  }); */
+});
+
+exports.sendPostsFromPostType = catchAsync(async (req, res, next) => {
 
   res.status(201).json({
     status: "success",
-    data: postsToSend,
+    data: req.postsToSend,
   });
 });
 
 exports.getPost = catchAsync(async (req, res, next) => {
-  console.log("HEY");
+
   console.log(req.params.postId);
   let doc = await Post.findById(req.params.postId);
   console.log(doc);

@@ -60,6 +60,7 @@ const communitySchema = new Schema({
     {
       user: mongoose.Schema.Types.ObjectId,
       status: Number,
+      userName: String
     },
   ],
   createdAt: {

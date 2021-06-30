@@ -9,6 +9,14 @@ const postSchema = new Schema({
     type: String,
     value: "bunity/CommunityData",
   },
+  isHidden: {
+    type: Boolean,
+    default: false,
+  },
+  isHiddenFromFeed: {
+    type: Boolean,
+    default: false,
+  },
   title: {
     type: String,
     required: [true, "A community data must have a title!"],
